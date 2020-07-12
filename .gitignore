@@ -1,0 +1,8 @@
+backend/gradlew
+backend/gradlew.bat
+backend/*gradle/
+backend/.idea
+backend/*out
+backend/*build
+backend/log
+backend/files
