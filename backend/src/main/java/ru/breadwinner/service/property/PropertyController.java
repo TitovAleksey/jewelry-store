@@ -31,25 +31,25 @@ public class PropertyController {
     }
 
     @ApiOperation("Получить дополнительное свойство по идентификатору")
-    @GetMapping("/{id}")
+    @GetMapping("/{id:\\d+}")
     public PropertyDTO getById(@ApiParam("Идентификатор") @PathVariable int id) {
         return propertyService.getById(id);
     }
 
-    @ApiOperation("")
+    @ApiOperation("Добавить дополнительное свойство")
     @PostMapping
     public PropertyDTO add(@Valid PropertyEditDTO request) {
         return propertyService.add(request);
     }
 
-    @ApiOperation("")
-    @PutMapping("/{id}")
+    @ApiOperation("Изменить дополнительное свойство")
+    @PutMapping("/{id:\\d+}")
     public PropertyDTO update(@ApiParam("Идентификатор") @PathVariable int id, @Valid PropertyEditDTO request) {
         return propertyService.update(id, request);
     }
 
-    @ApiOperation("")
-    @DeleteMapping("/{id}")
+    @ApiOperation("Удалить дополнительное свойство")
+    @DeleteMapping("/{id:\\d+}")
     public void delete(@ApiParam("Идентификатор") @PathVariable int id) {
         propertyService.delete(id);
     }

@@ -26,7 +26,7 @@ public class ProductPropertyValue {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
 

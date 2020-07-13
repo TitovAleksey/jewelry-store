@@ -12,7 +12,7 @@ import java.util.List;
 @Api(tags = "Допустимые значения дополнительных свойств")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/property/{propertyId}/value")
+@RequestMapping("/api/property/{propertyId:\\d+}/value")
 public class PropertyAvailableValueController {
 
     private final PropertyAvailableValueService propertyAvailableValueService;
@@ -25,7 +25,7 @@ public class PropertyAvailableValueController {
     }
 
     @ApiOperation("Получить значение дополнительного свойства по идентификатору")
-    @GetMapping("/{valueId}")
+    @GetMapping("/{valueId:\\d+}")
     public PropertyAvailableValueDTO getPropertyAndId(@ApiParam("Идентификатор дополнительного свойства")
                                                       @PathVariable int propertyId,
                                                       @ApiParam("Идентификатор значения дополнительного свойства")
@@ -42,7 +42,7 @@ public class PropertyAvailableValueController {
     }
 
     @ApiOperation("Изменить значение дополнительного свойства")
-    @PutMapping("/{valueId}")
+    @PutMapping("/{valueId:\\d+}")
     public PropertyAvailableValueDTO update(@ApiParam("Идентификатор дополнительного свойства")
                                             @PathVariable int propertyId,
                                             @ApiParam("Идентификатор значения дополнительного свойства")
@@ -52,7 +52,7 @@ public class PropertyAvailableValueController {
     }
 
     @ApiOperation("Удалить значение дополнительного свойства")
-    @DeleteMapping("/{valueId}")
+    @DeleteMapping("/{valueId:\\d+}")
     public void delete(@ApiParam("Идентификатор дополнительного свойства")
                        @PathVariable int propertyId,
                        @ApiParam("Идентификатор значения дополнительного свойства")

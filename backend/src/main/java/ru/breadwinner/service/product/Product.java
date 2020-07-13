@@ -1,11 +1,13 @@
 package ru.breadwinner.service.product;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import ru.breadwinner.service.category.Category;
 import ru.breadwinner.service.product.property.value.ProductPropertyValue;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -30,4 +32,8 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private Set<ProductPropertyValue> propertyValues;
+
+    @CreatedDate
+    @Column(name = "created_at")
+    private Date createdAt;
 }

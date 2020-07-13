@@ -25,7 +25,7 @@ public class CategoryController {
     }
 
     @ApiOperation("Получить категорию по идентификатору")
-    @GetMapping("/{id}")
+    @GetMapping("/{id:\\d+}")
     public CategoryDTO getById(@ApiParam("Идентификатор категории") @PathVariable int id) {
         return categoryService.getById(id);
     }
@@ -37,20 +37,20 @@ public class CategoryController {
     }
 
     @ApiOperation("Изменить категорию")
-    @PutMapping("/{id}")
+    @PutMapping("/{id:\\d+}")
     public CategoryDTO update(@ApiParam("Идентификатор категории") @PathVariable int id,
                               @RequestBody @Valid CategoryEditDTO request) {
         return categoryService.update(id, request);
     }
 
     @ApiOperation("Удалить категорию")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id:\\d+}")
     public void delete(@ApiParam("Идентификатор категории") @PathVariable int id) {
         categoryService.delete(id);
     }
 
     @ApiOperation("Получить список дополнительных свойств категории")
-    @GetMapping("/{id}/property")
+    @GetMapping("/{id:\\d+}/property")
     public List<PropertyDTO> getProperties(@ApiParam("Идентификатор категории") @PathVariable int id) {
         return categoryService.getPropertiesByCategory(id);
     }
