@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.breadwinner.service.common.EntityNotFountException;
+import ru.breadwinner.service.property.type.PropertyType;
+import ru.breadwinner.service.property.type.PropertyTypeDTO;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,12 +15,17 @@ import java.util.stream.Collectors;
 @Service
 public class PropertyService {
 
-    private final PropertyRepository propertyRepository;
+    private final PropertyDAO propertyDAO;
     private final ConversionService conversionService;
 
-    @Transactional(readOnly = true)
+    public List<PropertyTypeDTO> getTypes() {
+        return Arrays.stream(PropertyType.values())
+                .map(PropertyTypeDTO::new)
+                .collect(Collectors.toList());
+    }
+
     public List<PropertyDTO> getAll() {
-        return propertyRepository.findAll().stream()
+        return propertyDAO.getAll().stream()
                 .map(this::convertProperty)
                 .collect(Collectors.toList());
     }
@@ -27,23 +34,15 @@ public class PropertyService {
         return conversionService.convert(source, PropertyDTO.class);
     }
 
-    @Transactional(readOnly = true)
     public PropertyDTO getById(int id) {
-        Property property = getPropertyById(id);
+        Property property = propertyDAO.getById(id);
         return convertProperty(property);
     }
 
-    private Property getPropertyById(int id) {
-        return propertyRepository.findById(id)
-                .orElseThrow(() ->
-                        new EntityNotFountException("Дополнительное свойство с идентификатором %d не найдено", id));
-    }
-
-    @Transactional
     public PropertyDTO add(PropertyEditDTO request) {
         Property property = new Property();
         fillProperty(property, request);
-        propertyRepository.save(property);
+        property = propertyDAO.save(property);
         return convertProperty(property);
     }
 
@@ -57,16 +56,16 @@ public class PropertyService {
     @Transactional
     public PropertyDTO update(int id, PropertyEditDTO request) {
         //TODO: при смене типа дополнительного свойства удалять допустимые и заполненные значения
-        Property property = getPropertyById(id);
+        Property property = propertyDAO.getById(id);
         fillProperty(property, request);
-        propertyRepository.save(property);
+        property = propertyDAO.save(property);
         return convertProperty(property);
     }
 
     @Transactional
     public void delete(int id) {
         //TODO: удаление допустимых и заполненных значений
-        Property property = getPropertyById(id);
-        propertyRepository.delete(property);
+        Property property = propertyDAO.getById(id);
+        propertyDAO.delete(property);
     }
 }

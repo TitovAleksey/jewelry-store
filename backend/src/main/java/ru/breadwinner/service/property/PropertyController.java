@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.breadwinner.service.property.type.PropertyTypeDTO;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -16,6 +17,12 @@ import java.util.List;
 public class PropertyController {
 
     private final PropertyService propertyService;
+
+    @ApiOperation("Получить все типы дополнительных свойств")
+    @GetMapping("/type")
+    public List<PropertyTypeDTO> getAllTypes() {
+        return propertyService.getTypes();
+    }
 
     @ApiOperation("Получить все дополнительные свойства")
     @GetMapping

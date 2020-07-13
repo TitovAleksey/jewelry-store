@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
+import ru.breadwinner.service.property.type.PropertyType;
 
 @ApiModel("Дополнительное свойство")
 @Builder

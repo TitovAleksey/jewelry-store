@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import ru.breadwinner.service.category.Category;
+import ru.breadwinner.service.property.type.PropertyType;
 import ru.breadwinner.service.property.value.PropertyAvailableValue;
 
 import javax.persistence.*;
@@ -34,6 +36,12 @@ public class Property {
 
     @Column(name = "is_use_in_filter")
     private boolean isUseInFilter;
+
+    @ManyToMany
+    @JoinTable(name = "category_property",
+            joinColumns = @JoinColumn(name = "property_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
 
     @OneToMany(mappedBy = "property")
     private Set<PropertyAvailableValue> availableValues;

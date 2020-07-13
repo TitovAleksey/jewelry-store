@@ -1,4 +1,4 @@
-package ru.breadwinner.service.property;
+package ru.breadwinner.service.property.type;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
