@@ -1,47 +1,46 @@
-package ru.breadwinner.service.product;
+package ru.breadwinner.service.product.property.value;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.breadwinner.service.common.BaseDAO;
 import ru.breadwinner.service.common.EntityNotFountException;
+import ru.breadwinner.service.product.Product;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class ProductDAO implements BaseDAO<Product> {
+public class ProductPropertyValueDAO implements BaseDAO<ProductPropertyValue> {
 
-    private final ProductRepository repository;
+    private final ProductPropertyValueRepository repository;
 
     @Override
-    public List<Product> getAll() {
+    public List<ProductPropertyValue> getAll() {
         throw new UnsupportedOperationException();
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> getAll(int pageNumber, int pageSize) {
-        return repository.findAll(PageRequest.of(pageNumber, pageSize));
+    public List<ProductPropertyValue> getAllByProduct(Product product) {
+        return repository.findAllByProduct(product);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
-    public Product getById(int id) {
+    public ProductPropertyValue getById(int id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFountException("Товар с идентификатором %d не найден", id));
     }
 
     @Transactional
     @Override
-    public Product save(Product product) {
-        return repository.save(product);
+    public ProductPropertyValue save(ProductPropertyValue entity) {
+        return repository.save(entity);
     }
 
     @Transactional
     @Override
-    public void delete(Product product) {
-        repository.delete(product);
+    public void delete(ProductPropertyValue entity) {
+        repository.delete(entity);
     }
 }

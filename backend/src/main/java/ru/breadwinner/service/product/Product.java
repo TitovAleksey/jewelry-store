@@ -1,6 +1,7 @@
 package ru.breadwinner.service.product;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import ru.breadwinner.service.category.Category;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "product")
 public class Product {

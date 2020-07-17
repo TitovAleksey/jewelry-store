@@ -22,5 +22,5 @@ public class ProductPropertyValueDTO {
     private final BigDecimal numberValue;
 
     @ApiModelProperty("Идентификатор")
-    private final int dictionaryValueId;
+    private final Integer dictionaryValueId;
 }

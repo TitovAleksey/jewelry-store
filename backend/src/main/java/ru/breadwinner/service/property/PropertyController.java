@@ -38,13 +38,14 @@ public class PropertyController {
 
     @ApiOperation("Добавить дополнительное свойство")
     @PostMapping
-    public PropertyDTO add(@Valid PropertyEditDTO request) {
+    public PropertyDTO add(@RequestBody @Valid PropertyEditDTO request) {
         return propertyService.add(request);
     }
 
     @ApiOperation("Изменить дополнительное свойство")
     @PutMapping("/{id:\\d+}")
-    public PropertyDTO update(@ApiParam("Идентификатор") @PathVariable int id, @Valid PropertyEditDTO request) {
+    public PropertyDTO update(@ApiParam("Идентификатор") @PathVariable int id,
+                              @RequestBody @Valid PropertyEditDTO request) {
         return propertyService.update(id, request);
     }
 
