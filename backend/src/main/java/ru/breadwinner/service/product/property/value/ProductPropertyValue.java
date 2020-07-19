@@ -37,6 +37,6 @@ public class ProductPropertyValue {
     private BigDecimal numberValue;
 
     @ManyToOne
-    @Column(name = "property_available_value_id")
+    @JoinColumn(name = "property_available_value_id")
     private PropertyAvailableValue dictionaryValue;
 }

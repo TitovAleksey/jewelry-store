@@ -8,6 +8,7 @@ import ru.breadwinner.service.category.Category;
 import ru.breadwinner.service.product.property.value.ProductPropertyValue;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,6 +25,9 @@ public class Product {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
+    private BigDecimal price;
 
     @Column(name = "is_hidden")
     private boolean isHidden;

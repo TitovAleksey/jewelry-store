@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <changeSet id="20200719-1" author="titov-ad">
+        <sql>
+            CREATE SEQUENCE jewelrystore.sq_property
+            INCREMENT BY 1
+            MINVALUE 0
+            MAXVALUE 2147483647
+            START WITH 1
+            CACHE 1
+            NO CYCLE
+            OWNED BY NONE;
+
+            ALTER SEQUENCE jewelrystore.sq_property OWNER TO jewelrystore;
+
+            CREATE TABLE jewelrystore.property (
+            property_id integer NOT NULL DEFAULT nextval('jewelrystore.sq_property'::regclass),
+            name text NOT NULL,
+            type text NOT NULL,
+            is_hidden boolean NOT NULL DEFAULT false,
+            is_use_in_filter boolean NOT NULL DEFAULT false,
+            CONSTRAINT pk_property PRIMARY KEY (property_id)
+            );
+
+            COMMENT ON TABLE jewelrystore.property IS E'Дополнительное свойство';
+            COMMENT ON COLUMN jewelrystore.property.property_id IS E'Идентификатор';
+            COMMENT ON COLUMN jewelrystore.property.name IS E'Наименование';
+            COMMENT ON COLUMN jewelrystore.property.type IS E'Тип дополнительного свойства';
+            COMMENT ON COLUMN jewelrystore.property.is_hidden IS E'Признак того что свойство скрыто';
+            COMMENT ON COLUMN jewelrystore.property.is_use_in_filter IS E'Признак того, что дополнительное свойство
+            нужно использовать в фильтрах';
+
+            ALTER TABLE jewelrystore.property OWNER TO jewelrystore;
+
+            CREATE SEQUENCE jewelrystore.sq_property_available_value
+            INCREMENT BY 1
+            MINVALUE 0
+            MAXVALUE 2147483647
+            START WITH 1
+            CACHE 1
+            NO CYCLE
+            OWNED BY NONE;
+
+            ALTER SEQUENCE jewelrystore.sq_property_available_value OWNER TO jewelrystore;
+
+            CREATE TABLE jewelrystore.property_available_value (
+            property_available_value_id integer NOT NULL DEFAULT
+            nextval('jewelrystore.sq_property_available_value'::regclass),
+            property_id integer NOT NULL,
+            value text NOT NULL,
+            CONSTRAINT pk_property_available_value PRIMARY KEY (property_available_value_id)
+            );
+
+            COMMENT ON TABLE jewelrystore.property_available_value IS E'Допустимые значения дополнительных свойств';
+            COMMENT ON COLUMN jewelrystore.property_available_value.property_available_value_id IS E'Идентификатор';
+            COMMENT ON COLUMN jewelrystore.property_available_value.property_id IS E'Ссылка на дополнительное свойство';
+            COMMENT ON COLUMN jewelrystore.property_available_value.value IS E'Значение';
+
+            ALTER TABLE jewelrystore.property_available_value OWNER TO jewelrystore;
+
+            CREATE SEQUENCE jewelrystore.sq_category
+            INCREMENT BY 1
+            MINVALUE 0
+            MAXVALUE 2147483647
+            START WITH 1
+            CACHE 1
+            NO CYCLE
+            OWNED BY NONE;
+
+            ALTER SEQUENCE jewelrystore.sq_category OWNER TO jewelrystore;
+
+            CREATE TABLE jewelrystore.category (
+            category_id integer NOT NULL DEFAULT nextval('jewelrystore.sq_category'::regclass),
+            name text NOT NULL,
+            sort integer NOT NULL DEFAULT 0,
+            is_hidden boolean NOT NULL DEFAULT false,
+            product_layout_template text NOT NULL,
+            CONSTRAINT pk_category PRIMARY KEY (category_id)
+            );
+
+            COMMENT ON TABLE jewelrystore.category IS E'Категории товара';
+            COMMENT ON COLUMN jewelrystore.category.category_id IS E'Идентификатор';
+            COMMENT ON COLUMN jewelrystore.category.name IS E'Наименование';
+            COMMENT ON COLUMN jewelrystore.category.sort IS E'Индекс для сортировки';
+            COMMENT ON COLUMN jewelrystore.category.is_hidden IS E'Признак того что категория товара скрыта';
+            COMMENT ON COLUMN jewelrystore.category.product_layout_template IS E'Шаблон карточки товара';
+
+            ALTER TABLE jewelrystore.category OWNER TO jewelrystore;
+
+            CREATE TABLE jewelrystore.category_property (
+            category_id integer NOT NULL,
+            property_id integer NOT NULL,
+            CONSTRAINT pk_category_property PRIMARY KEY (category_id,property_id)
+            );
+
+            COMMENT ON TABLE jewelrystore.category_property IS E'Дополнительные свойства категории';
+            COMMENT ON COLUMN jewelrystore.category_property.category_id IS E'Ссылка на категорию';
+            COMMENT ON COLUMN jewelrystore.category_property.property_id IS E'Ссылка на дополнительное свойство';
+
+            ALTER TABLE jewelrystore.category_property OWNER TO jewelrystore;
+
+            CREATE SEQUENCE jewelrystore.sq_product
+            INCREMENT BY 1
+            MINVALUE 0
+            MAXVALUE 2147483647
+            START WITH 1
+            CACHE 1
+            NO CYCLE
+            OWNED BY NONE;
+
+            ALTER SEQUENCE jewelrystore.sq_product OWNER TO jewelrystore;
+
+            CREATE TABLE jewelrystore.product (
+            product_id integer NOT NULL DEFAULT nextval('jewelrystore.sq_product'::regclass),
+            name text NOT NULL,
+            price numeric(15,2),
+            is_hidden boolean NOT NULL DEFAULT false,
+            category_id integer NOT NULL,
+            created_at timestamp(0) with time zone NOT NULL DEFAULT current_timestamp,
+            CONSTRAINT pk_product PRIMARY KEY (product_id)
+            );
+
+            COMMENT ON TABLE jewelrystore.product IS E'Товар';
+            COMMENT ON COLUMN jewelrystore.product.product_id IS E'Идентификатор';
+            COMMENT ON COLUMN jewelrystore.product.name IS E'Наименование';
+            COMMENT ON COLUMN jewelrystore.product.price IS E'Цена';
+            COMMENT ON COLUMN jewelrystore.product.is_hidden IS E'Признак того что товар скрыт';
+            COMMENT ON COLUMN jewelrystore.product.category_id IS E'Ссылка на категорию';
+            COMMENT ON COLUMN jewelrystore.product.created_at IS E'Дата создания записи';
+
+            ALTER TABLE jewelrystore.product OWNER TO jewelrystore;
+
+            CREATE SEQUENCE jewelrystore.sq_product_property_value
+            INCREMENT BY 1
+            MINVALUE 0
+            MAXVALUE 2147483647
+            START WITH 1
+            CACHE 1
+            NO CYCLE
+            OWNED BY NONE;
+
+            ALTER SEQUENCE jewelrystore.sq_product_property_value OWNER TO jewelrystore;
+
+            CREATE TABLE jewelrystore.product_property_value (
+            product_property_value_id integer NOT NULL DEFAULT
+            nextval('jewelrystore.sq_product_property_value'::regclass),
+            product_id integer NOT NULL,
+            property_id integer NOT NULL,
+            text_value text,
+            number_value numeric(15,5),
+            property_available_value_id integer,
+            CONSTRAINT pk_product_property_value PRIMARY KEY (product_property_value_id),
+            CONSTRAINT uq_product_property_value_product_id_property_id UNIQUE (product_id,property_id)
+            );
+
+            COMMENT ON COLUMN jewelrystore.product_property_value.product_property_value_id IS E'Идентификатор';
+            COMMENT ON COLUMN jewelrystore.product_property_value.product_id IS E'Ссылка на товар';
+            COMMENT ON COLUMN jewelrystore.product_property_value.property_id IS E'Ссылка на дополнительное свойство';
+            COMMENT ON COLUMN jewelrystore.product_property_value.text_value IS E'Текстовое значение';
+            COMMENT ON COLUMN jewelrystore.product_property_value.number_value IS E'Числовое значение';
+            COMMENT ON COLUMN jewelrystore.product_property_value.property_available_value_id IS E'Ссылка на значение
+            дополнительного свойства';
+
+            ALTER TABLE jewelrystore.product_property_value OWNER TO jewelrystore;
+
+            ALTER TABLE jewelrystore.property_available_value ADD CONSTRAINT fk_property_available_value_property_id
+            FOREIGN KEY (property_id)
+            REFERENCES jewelrystore.property (property_id) MATCH FULL
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+            ALTER TABLE jewelrystore.category_property ADD CONSTRAINT fk_category_property_category_id FOREIGN KEY
+            (category_id)
+            REFERENCES jewelrystore.category (category_id) MATCH FULL
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+            ALTER TABLE jewelrystore.category_property ADD CONSTRAINT fk_category_property_property_id FOREIGN KEY
+            (property_id)
+            REFERENCES jewelrystore.property (property_id) MATCH FULL
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+            ALTER TABLE jewelrystore.product ADD CONSTRAINT fk_product_category_id FOREIGN KEY (category_id)
+            REFERENCES jewelrystore.category (category_id) MATCH FULL
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+            ALTER TABLE jewelrystore.product_property_value ADD CONSTRAINT fk_product_property_value_product_id FOREIGN
+            KEY (product_id)
+            REFERENCES jewelrystore.product (product_id) MATCH FULL
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+            ALTER TABLE jewelrystore.product_property_value ADD CONSTRAINT fk_product_property_value_property_id FOREIGN
+            KEY (property_id)
+            REFERENCES jewelrystore.property (property_id) MATCH FULL
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+            ALTER TABLE jewelrystore.product_property_value ADD CONSTRAINT
+            fk_product_property_value_property_available_value_id FOREIGN KEY (property_available_value_id)
+            REFERENCES jewelrystore.property_available_value (property_available_value_id) MATCH FULL
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
+

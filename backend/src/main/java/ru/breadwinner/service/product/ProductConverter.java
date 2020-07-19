@@ -11,6 +11,7 @@ public class ProductConverter extends BaseConverter<Product, ProductDTO> {
         return ProductDTO.builder()
                 .id(source.getId())
                 .name(source.getName())
+                .price(source.getPrice())
                 .isHidden(source.isHidden())
                 .build();
     }

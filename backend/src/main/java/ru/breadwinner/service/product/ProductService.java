@@ -43,7 +43,9 @@ public class ProductService {
     }
 
     private void fillProduct(Product product, ProductEditDTO source) {
+        //TODO: заполнение дополнительных свойств
         product.setName(source.getName())
+                .setPrice(source.getPrice())
                 .setHidden(source.isHidden())
                 .setCategory(categoryDAO.getById(source.getCategoryId()))
         ;

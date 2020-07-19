@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,0" last-zoom="1" max-obj-count="8"
+	 default-schema="jewelrystore" default-owner="jewelrystore">
+<role name="jewelrystore"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<database name="jewelrystore" encoding="UTF8" lc-collate="en_US.utf8" lc-ctype="en_US.utf8" is-template="false" allow-conns="true">
+	<role name="jewelrystore"/>
+	<tablespace name="pg_default"/>
+	<comment><![CDATA[default administrative connection database]]></comment>
+</database>
+
+<schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="jewelrystore" layer="0" rect-visible="true" fill-color="#aca5be">
+	<role name="jewelrystore"/>
+</schema>
+
+<sequence name="sq_property" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+</sequence>
+
+<table name="property" layer="0" collapse-mode="2" max-obj-count="6">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+	<comment><![CDATA[Дополнительное свойство]]></comment>
+	<position x="20" y="40"/>
+	<column name="property_id" not-null="true" sequence="jewelrystore.sq_property">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Идентификатор]]></comment>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[Наименование]]></comment>
+	</column>
+	<column name="type" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[Тип дополнительного свойства]]></comment>
+	</column>
+	<column name="is_hidden" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Признак того что свойство скрыто]]></comment>
+	</column>
+	<column name="is_use_in_filter" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Признак того, что дополнительное свойство нужно использовать в фильтрах]]></comment>
+	</column>
+	<constraint name="pk_property" type="pk-constr" table="jewelrystore.property">
+		<columns names="property_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="sq_property_available_value" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+</sequence>
+
+<table name="property_available_value" layer="0" collapse-mode="2" max-obj-count="3">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+	<comment><![CDATA[Допустимые значения дополнительных свойств]]></comment>
+	<position x="320" y="40"/>
+	<column name="property_available_value_id" not-null="true" sequence="jewelrystore.sq_property_available_value">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Идентификатор]]></comment>
+	</column>
+	<column name="property_id" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Ссылка на дополнительное свойство]]></comment>
+	</column>
+	<column name="value" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[Значение]]></comment>
+	</column>
+	<constraint name="pk_property_available_value" type="pk-constr" table="jewelrystore.property_available_value">
+		<columns names="property_available_value_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="sq_category" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+</sequence>
+
+<table name="category" layer="0" collapse-mode="2" max-obj-count="6">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+	<comment><![CDATA[Категории товара]]></comment>
+	<position x="20" y="220"/>
+	<column name="category_id" not-null="true" sequence="jewelrystore.sq_category">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Идентификатор]]></comment>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[Наименование]]></comment>
+	</column>
+	<column name="sort" not-null="true" default-value="0">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Индекс для сортировки]]></comment>
+	</column>
+	<column name="is_hidden" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Признак того что категория товара скрыта]]></comment>
+	</column>
+	<column name="product_layout_template" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[Шаблон карточки товара]]></comment>
+	</column>
+	<constraint name="pk_category" type="pk-constr" table="jewelrystore.category">
+		<columns names="category_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="category_property" layer="0" collapse-mode="2" max-obj-count="3">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+	<comment><![CDATA[Дополнительные свойства категории]]></comment>
+	<position x="360" y="220"/>
+	<column name="category_id" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Ссылка на категорию]]></comment>
+	</column>
+	<column name="property_id" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Ссылка на дополнительное свойство]]></comment>
+	</column>
+	<constraint name="pk_category_property" type="pk-constr" table="jewelrystore.category_property">
+		<columns names="category_id,property_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="sq_product" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+</sequence>
+
+<table name="product" layer="0" collapse-mode="2" max-obj-count="7">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+	<comment><![CDATA[Товар]]></comment>
+	<position x="20" y="400"/>
+	<column name="product_id" not-null="true" sequence="jewelrystore.sq_product">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Идентификатор]]></comment>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[Наименование]]></comment>
+	</column>
+	<column name="price">
+		<type name="numeric" length="15" precision="2"/>
+		<comment><![CDATA[Цена]]></comment>
+	</column>
+	<column name="is_hidden" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Признак того что товар скрыт]]></comment>
+	</column>
+	<column name="category_id" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Ссылка на категорию]]></comment>
+	</column>
+	<column name="created_at" not-null="true" default-value="current_timestamp">
+		<type name="timestamp with time zone" length="0" precision="0" with-timezone="true"/>
+		<comment><![CDATA[Дата создания записи]]></comment>
+	</column>
+	<constraint name="pk_product" type="pk-constr" table="jewelrystore.product">
+		<columns names="product_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="sq_product_property_value" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+</sequence>
+
+<table name="product_property_value" layer="0" collapse-mode="2" max-obj-count="7">
+	<schema name="jewelrystore"/>
+	<role name="jewelrystore"/>
+	<position x="420" y="400"/>
+	<column name="product_property_value_id" not-null="true" sequence="jewelrystore.sq_product_property_value">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Идентификатор]]></comment>
+	</column>
+	<column name="product_id" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Ссылка на товар]]></comment>
+	</column>
+	<column name="property_id" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Ссылка на дополнительное свойство]]></comment>
+	</column>
+	<column name="text_value">
+		<type name="text" length="0"/>
+		<comment><![CDATA[Текстовое значение]]></comment>
+	</column>
+	<column name="number_value">
+		<type name="numeric" length="15" precision="5"/>
+		<comment><![CDATA[Числовое значение]]></comment>
+	</column>
+	<column name="property_available_value_id">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Ссылка на значение дополнительного свойства]]></comment>
+	</column>
+	<constraint name="pk_product_property_value" type="pk-constr" table="jewelrystore.product_property_value">
+		<columns names="product_property_value_id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="uq_product_property_value_product_id_property_id" type="uq-constr" table="jewelrystore.product_property_value">
+		<columns names="product_id,property_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fk_property_available_value_property_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="jewelrystore.property" table="jewelrystore.property_available_value">
+	<columns names="property_id" ref-type="src-columns"/>
+	<columns names="property_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_category_property_category_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="jewelrystore.category" table="jewelrystore.category_property">
+	<columns names="category_id" ref-type="src-columns"/>
+	<columns names="category_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_category_property_property_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="jewelrystore.property" table="jewelrystore.category_property">
+	<columns names="property_id" ref-type="src-columns"/>
+	<columns names="property_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_product_category_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="jewelrystore.category" table="jewelrystore.product">
+	<columns names="category_id" ref-type="src-columns"/>
+	<columns names="category_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_product_property_value_product_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="jewelrystore.product" table="jewelrystore.product_property_value">
+	<columns names="product_id" ref-type="src-columns"/>
+	<columns names="product_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_product_property_value_property_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="jewelrystore.property" table="jewelrystore.product_property_value">
+	<columns names="property_id" ref-type="src-columns"/>
+	<columns names="property_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_product_property_value_property_available_value_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="jewelrystore.property_available_value" table="jewelrystore.product_property_value">
+	<columns names="property_available_value_id" ref-type="src-columns"/>
+	<columns names="property_available_value_id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_property_available_value_property" type="relfk" layer="0"
+	 src-table="jewelrystore.property_available_value"
+	 dst-table="jewelrystore.property" reference-fk="fk_property_available_value_property_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_category_property_category" type="relfk" layer="0"
+	 src-table="jewelrystore.category_property"
+	 dst-table="jewelrystore.category" reference-fk="fk_category_property_category_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_category_property_property" type="relfk" layer="0"
+	 src-table="jewelrystore.category_property"
+	 dst-table="jewelrystore.property" reference-fk="fk_category_property_property_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_product_category" type="relfk" layer="0"
+	 src-table="jewelrystore.product"
+	 dst-table="jewelrystore.category" reference-fk="fk_product_category_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_product_property_value_product" type="relfk" layer="0"
+	 src-table="jewelrystore.product_property_value"
+	 dst-table="jewelrystore.product" reference-fk="fk_product_property_value_product_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_product_property_value_property" type="relfk" layer="0"
+	 src-table="jewelrystore.product_property_value"
+	 dst-table="jewelrystore.property" reference-fk="fk_product_property_value_property_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_product_property_value_property_available_value" type="relfk" layer="0"
+	 src-table="jewelrystore.product_property_value"
+	 dst-table="jewelrystore.property_available_value" reference-fk="fk_product_property_value_property_available_value_id"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>

@@ -8,6 +8,7 @@ import ru.breadwinner.service.product.property.value.ProductPropertyValueEditDTO
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 import java.util.List;
 
 @ApiModel("Товар (запрос на создание и изменение)")
@@ -17,6 +18,9 @@ public class ProductEditDTO {
     @ApiModelProperty("Наименование")
     @NotBlank(message = "Наименование не заполнено")
     private String name;
+
+    @ApiModelProperty("Цена")
+    private BigDecimal price;
 
     @ApiModelProperty("Признак того что товар скрыт")
     @ApiParam(defaultValue = "false")

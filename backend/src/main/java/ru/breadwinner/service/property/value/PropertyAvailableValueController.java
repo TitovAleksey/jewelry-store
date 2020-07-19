@@ -37,7 +37,7 @@ public class PropertyAvailableValueController {
     @PostMapping
     public PropertyAvailableValueDTO add(@ApiParam("Идентификатор дополнительного свойства")
                                          @PathVariable int propertyId,
-                                         @Valid PropertyAvailableValueEditDTO request) {
+                                         @RequestBody @Valid PropertyAvailableValueEditDTO request) {
         return propertyAvailableValueService.add(propertyId, request);
     }
 
@@ -47,7 +47,7 @@ public class PropertyAvailableValueController {
                                             @PathVariable int propertyId,
                                             @ApiParam("Идентификатор значения дополнительного свойства")
                                             @PathVariable int valueId,
-                                            @Valid PropertyAvailableValueEditDTO request) {
+                                            @RequestBody @Valid PropertyAvailableValueEditDTO request) {
         return propertyAvailableValueService.update(propertyId, valueId, request);
     }
 
