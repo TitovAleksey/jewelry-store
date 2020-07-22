@@ -21,8 +21,8 @@ public class PropertyDTO {
     private final PropertyType type;
 
     @ApiModelProperty("Признак того что свойство скрыто")
-    private final boolean isHidden;
+    private final Boolean isHidden;
 
     @ApiModelProperty("Признак того что свойство используется в фильтрах")
-    private final boolean isUseInFilter;
+    private final Boolean isUseInFilter;
 }

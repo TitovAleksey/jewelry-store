@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.breadwinner.service.common.BadRequestException;
 import ru.breadwinner.service.common.EntityNotFountException;
 import ru.breadwinner.service.property.Property;
 import ru.breadwinner.service.property.PropertyRepository;
+import ru.breadwinner.service.property.type.PropertyType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,9 +30,14 @@ public class PropertyAvailableValueService {
     }
 
     private Property getProperty(int propertyId) {
-        return propertyRepository.findById(propertyId)
+        Property property = propertyRepository.findById(propertyId)
                 .orElseThrow(() -> new EntityNotFountException("Дополнительное свойство с идентификатором %d не найдено",
                         propertyId));
+        if (property.getType() != PropertyType.DICTIONARY) {
+            throw new BadRequestException("Свойство '%s' не является справочником", property.getName());
+        } else {
+            return property;
+        }
     }
 
     private PropertyAvailableValueDTO convertPropertyAvailableValue(PropertyAvailableValue source) {

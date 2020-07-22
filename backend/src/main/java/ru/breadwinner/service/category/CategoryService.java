@@ -44,7 +44,7 @@ public class CategoryService {
     private void fillCategory(Category category, CategoryEditDTO source) {
         category.setName(source.getName())
                 .setSort(source.getSort())
-                .setHidden(source.isHidden())
+                .setHidden(source.getIsHidden())
                 .setProductLayoutTemplate(source.getProductLayoutTemplate())
                 .setProperties(source.getPropertyIds() == null || source.getPropertyIds().isEmpty() ? Collections.emptySet() :
                         source.getPropertyIds().stream()

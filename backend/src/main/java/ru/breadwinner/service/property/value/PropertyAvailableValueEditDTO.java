@@ -12,5 +12,5 @@ public class PropertyAvailableValueEditDTO {
 
     @ApiModelProperty("Значение")
     @NotBlank(message = "Не заполнено значение")
-    private final String value;
+    private String value;
 }

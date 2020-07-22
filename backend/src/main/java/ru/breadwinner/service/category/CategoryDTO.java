@@ -20,7 +20,7 @@ public class CategoryDTO {
     private final int sort;
 
     @ApiModelProperty("Признак того что категория скрыта")
-    private final boolean isHidden;
+    private final Boolean isHidden;
 
     @ApiModelProperty("Шаблон карточки товара данной категории")
     private final String productLayoutTemplate;

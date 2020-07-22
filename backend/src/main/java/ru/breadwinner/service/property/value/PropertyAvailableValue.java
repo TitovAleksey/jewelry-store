@@ -14,8 +14,9 @@ public class PropertyAvailableValue {
 
     @EqualsAndHashCode.Include
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "property_available_value_id")
-    private int id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "property_id")

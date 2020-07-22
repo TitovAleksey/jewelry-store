@@ -2,7 +2,6 @@ package ru.breadwinner.service.property;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.Data;
 import ru.breadwinner.service.property.type.PropertyType;
 
@@ -21,11 +20,11 @@ public class PropertyEditDTO {
     @NotNull(message = "Не заполнен тип")
     private PropertyType type;
 
-    @ApiModelProperty("Признак того что свойство скрыто")
-    @ApiParam(defaultValue = "false")
-    private boolean isHidden;
+    @ApiModelProperty(value = "Признак того что свойство скрыто", required = true)
+    @NotNull(message = "Не заполнен признак скрытия свойства")
+    private Boolean isHidden;
 
-    @ApiModelProperty("Признак того что свойство используется в фильтрах")
-    @ApiParam(defaultValue = "false")
-    private boolean isUseInFilter;
+    @ApiModelProperty(value = "Признак того что свойство используется в фильтрах", required = true)
+    @NotNull(message = "Не заполнен признак использования свойства в фильтрах")
+    private Boolean isUseInFilter;
 }

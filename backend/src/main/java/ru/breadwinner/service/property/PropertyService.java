@@ -49,8 +49,8 @@ public class PropertyService {
     private void fillProperty(Property property, PropertyEditDTO source) {
         property.setName(source.getName())
                 .setType(source.getType())
-                .setHidden(source.isHidden())
-                .setUseInFilter(source.isUseInFilter());
+                .setHidden(source.getIsHidden())
+                .setUseInFilter(source.getIsHidden());
     }
 
     @Transactional

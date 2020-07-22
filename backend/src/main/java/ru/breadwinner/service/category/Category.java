@@ -17,8 +17,9 @@ public class Category {
 
     @EqualsAndHashCode.Include
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -32,7 +33,7 @@ public class Category {
     @Column(name = "product_layout_template")
     private String productLayoutTemplate;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "category_property",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "property_id"))

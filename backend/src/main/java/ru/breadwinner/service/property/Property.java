@@ -21,8 +21,9 @@ public class Property {
 
     @EqualsAndHashCode.Include
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "property_id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -37,12 +38,12 @@ public class Property {
     @Column(name = "is_use_in_filter")
     private boolean isUseInFilter;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "category_property",
             joinColumns = @JoinColumn(name = "property_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories;
 
-    @OneToMany(mappedBy = "property")
+    @OneToMany(mappedBy = "property", cascade = CascadeType.REMOVE)
     private Set<PropertyAvailableValue> availableValues;
 }

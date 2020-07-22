@@ -2,10 +2,10 @@ package ru.breadwinner.service.category;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @ApiModel("Категория (запрос на создание и изменение)")
@@ -17,12 +17,12 @@ public class CategoryEditDTO {
     private String name;
 
     @ApiModelProperty("Индекс для сортировки")
-    @ApiParam(defaultValue = "0")
-    private int sort;
+    @NotNull(message = "Не заполнен индекс для сортировки")
+    private Integer sort;
 
     @ApiModelProperty("Признак того что категория скрыта")
-    @ApiParam(defaultValue = "false")
-    private boolean isHidden;
+    @NotNull(message = "Не заполнен признак скрытия категории")
+    private Boolean isHidden;
 
     @ApiModelProperty("Шаблон карточки товара данной категории")
     @NotBlank(message = "Не заполнен шаблон карточки товара")
